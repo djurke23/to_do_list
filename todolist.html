@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <style>
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 350px;
+    text-align: center;
+}
+
+h1 {
+    margin: 0 0 20px;
+}
+
+input, select {
+    width: calc(100% - 24px);
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #28a745;
+    color: white;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    background-color: #f9f9f9;
+    margin-bottom: 5px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+li span {
+    flex-grow: 1;
+    margin-left: 10px;
+}
+
+li button {
+    background-color: #dc3545;
+    padding: 5px;
+}
+
+li button:hover {
+    background-color: #c82333;
+}
+
+.icon {
+    font-size: 20px;
+}
+
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>To-Do List</h1>
+        <input type="text" id="new-task" placeholder="Task...">
+        <input type="datetime-local" id="task-time">
+        <input type="text" id="task-location" placeholder="Location...">
+        <select id="task-icon">
+            <option value="📝">General</option>
+            <option value="🏃">Exercise</option>
+            <option value="🍽">Meal</option>
+            <option value="📚">Study</option>
+        </select>
+        <button id="add-task">Add</button>
+        <ul id="task-list"></ul>
+    </div>
+
+    <script>
+
+document.getElementById('add-task').addEventListener('click', function() {
+    var taskInput = document.getElementById('new-task');
+    var timeInput = document.getElementById('task-time');
+    var locationInput = document.getElementById('task-location');
+    var iconInput = document.getElementById('task-icon');
+    var taskText = taskInput.value;
+    var taskTime = timeInput.value;
+    var taskLocation = locationInput.value;
+    var taskIcon = iconInput.value;
+    
+    if (taskText !== '') {
+        var li = document.createElement('li');
+        var taskContent = document.createElement('span');
+        taskContent.innerHTML = `<span class="icon">${taskIcon}</span> <strong>${taskText}</strong> <br> ${taskTime} @ ${taskLocation}`;
+        
+        var removeButton = document.createElement('button');
+        removeButton.textContent = 'Remove';
+        removeButton.addEventListener('click', function() {
+            this.parentNode.remove();
+        });
+        
+        li.appendChild(taskContent);
+        li.appendChild(removeButton);
+        
+        document.getElementById('task-list').appendChild(li);
+        
+        taskInput.value = '';
+        timeInput.value = '';
+        locationInput.value = '';
+        iconInput.value = '📝';
+    }
+});
+
+
+    </script>
+
+</body>
+</html>
